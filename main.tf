@@ -52,7 +52,7 @@ resource "aws_s3_bucket" "new_bucket" {
   }
 }
 
-resource "aws_s3_bucket" "new_bucket" {
+resource "aws_s3_bucket" "samsung" {
   bucket = "well-tech-jenkins-samsung"  # Set your desired bucket name
   acl    = "private"  # Set the access control list (ACL), options are private, public-read, public-read-write, or authenticated-read
 

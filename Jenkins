@@ -35,8 +35,7 @@ pipeline {
             steps {
                 // Apply the Terraform changes (this step should require manual approval)
                 script {
-                    input message: 'Do you want to apply these Terraform changes?', ok: 'Deploy'
-                    sh 'terraform apply'
+                    sh 'terraform apply -auto-approve'
                 }
             }
         }

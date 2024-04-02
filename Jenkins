@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+    
+    environment {
+        AWS_DEFAULT_REGION = 'us-east-1'
+    }
+
+    stages {
+      
+        stage('Terraform Init') {
+            steps {
+                // Initialize Terraform in the directory containing your Terraform code
+                script {
+            withCredentials([[
+            $class: 'AmazonWebServicesCredentialsBinding',
+            credentialsId: 'awskeys'
+          ]] ) {
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                // Create a Terraform plan to see what changes will be made
+                script {
+                    sh 'terraform plan -out=tfplan'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                // Apply the Terraform changes (this step should require manual approval)
+                script {
+                    input message: 'Do you want to apply these Terraform changes?', ok: 'Deploy'
+                    sh 'terraform apply'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Cleanup any Terraform state files and plans
+            sh 'rm -rf .terraform tfplan'
+        }
+    }
+}

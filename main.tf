@@ -35,19 +35,3 @@ resource "aws_s3_bucket" "my_bucket" {
     Environment = "Development"
   }
 }
-
-resource "aws_s3_bucket" "my_bucket_gg" {
-  bucket = "well-tech-tf-cicd-gg"  # Set your desired bucket name
-  acl    = "private"  # Set the access control list (ACL), options are private, public-read, public-read-write, or authenticated-read
-
-  # Optional: Configure versioning
-  versioning {
-    enabled = true
-  }
-
-  # Optional: Configure bucket tags
-  tags = {
-    Name = "MyBucket"
-    Environment = "Development"
-  }
-}

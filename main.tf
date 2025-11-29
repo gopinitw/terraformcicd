@@ -35,3 +35,14 @@ resource "aws_s3_bucket" "my_bucket" {
     Environment = "Development"
   }
 }
+resource "aws_s3_bucket_object" "my_object" {
+  bucket = aws_s3_bucket.my_bucket.bucket
+  key    = "example.txt"  # Set the object key (file name)
+  content = "This is an example content for the S3 object."  # Set the content of the object
+
+  # Optional: Set metadata
+  metadata = {
+    Author = "WellTech"
+    Purpose = "Terraform Example"
+  }
+}
